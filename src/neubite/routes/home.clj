@@ -3,7 +3,8 @@
         ring.util.response)
   (:require [neubite.middleware :refer [g put-context]]
             [neubite.models :refer [auth-user get-user-by-email]]
-            [neubite.views.common :refer [render-template]]))
+            [neubite.views.common :refer [render-template]]
+            [ring.middleware.session.cookie :refer [wrap-session]]))
 
 (defn logout []
   (session-put! :user-email "")
