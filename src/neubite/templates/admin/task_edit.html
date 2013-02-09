@@ -1,0 +1,46 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<a href="/admin/">Back to admin</a>
+
+<h1>Edit this task</h1>
+<form method="POST" action="">
+  <input type="submit" name="submit" class="button" value="Submit Edit" />
+  <br><br>
+  <div id="wrapper">
+    <div class="row">
+      <div class="six columns">
+        <div class="original">{{"<br>".join(task.last_version.strip().split("\n"))|safe}}</div>
+      </div>
+
+      <div class="six columns">
+        <textarea id="userinput" name="input" rows=25 cols=25></textarea>
+      </div>
+      <div style="display: none;" class="changed"></div>
+      <div class="twelve columns">
+        <div class="diff" style="line-height: 19px;"></div>
+      </div>
+    </div>
+  </div>
+</form>
+{% endblock content %}
+
+{% block extra_js %}
+  {{super()}}
+
+  <script type="text/javascript">
+  function diff() {
+    $(".changed").text($("#userinput").val());
+    $("#wrapper").prettyTextDiff({
+      cleanup: true
+    });
+    return true;
+  }
+
+  $(document).ready(function(){
+    $("#userinput").bind("input change keyup", function() {
+      diff();
+    });
+  });
+  </script>
+{% endblock extra_js %}

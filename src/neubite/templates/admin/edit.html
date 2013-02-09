@@ -1,0 +1,21 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+<div class="row">
+  <br><br>
+  <a href="/admin/">Back to admin</a>
+  <br><br>
+</div>
+<table class="responsive">
+  <tr>
+  {% for field in instance.show_fields %}
+    <th>{{field.capitalize()}}</th>
+    {% endfor %}
+  </tr>
+  <tr>
+  {% for field in instance.show_fields %}
+    <td>{{instance[field]}}</td>
+  {% endfor %}
+  </tr>
+</table>
+{% endblock content %}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+  <title>bitemyapp</title>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <meta name="description" content="EditHero provides expert proofreading and editing services.  Flexible turnaround times, competitive prices, simple interface all at your fingertips.">
+   <link rel='shortcut icon' href="/img/favicon.ico" type="image/x-icon" />
+   {% block css %}
+   <link rel="stylesheet" href="/css/foundation.min.css">
+   <link rel="stylesheet" href="/css/app.css">
+   {% endblock css %}
+   {% block extra_css %}{% endblock extra_css %}
+</head>
+<body style="{% block body_style %}{% endblock body_style %}">
+{% block header %}
+<div class="row">
+    <div class="twelve columns no-padding">
+      <ul class="inline-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        {% if user.is_superuser %}
+          <li><a href="/admin/">Admin Home</a></li>
+        {% endif %}
+        {% if user %}
+          <li><a href="/logout/">Logout</a></li>
+        {% endif %}
+        {% if not user %}
+          <li><a href="/login/">Admin Login</a></li>
+        {% endif %}
+      </ul> 
+    </div>
+  </div>
+</div>
+{% endblock header %}
+
+{% block body %}
+{% block content %}{% endblock content %}
+{% endblock body %}
+
+{% block footer %}
+<hr>
+<footer class="row">
+  <div class="two columns"></div>
+  <div class="eight columns footer">
+    Questions? Need a hacker? <a href="mailto:cma@bitemyapp.com">Contact me</a>
+    <br><br>
+    Copyright 2013 Chris Allen - Made with <strong><3</strong>
+    <br><br><br><br>
+  </div>
+  <div class="two columns"></div>
+</footer>
+{% endblock footer %}
+
+{% block js %}
+<script src="/js/underscore-min.js"></script>
+<script src="/js/jquery.js"></script>
+<script src="/js/analytics.min.js"></script>
+{% endblock js %}
+{% block analytics %}
+
+<script type="text/javascript">
+analytics.initialize({
+    'Google Analytics' : {
+      trackingId              : 'UA-37638718-1',
+      enhancedLinkAttribution : false,
+      domain : 'edithero.com',
+      siteSpeedSampleRate : 5
+    },
+    'Mixpanel' : {
+      token : "cfdda37a0e000380cecc305830b89519",
+      people : true
+    }
+});
+</script>
+
+{% endblock analytics %}
+{% block extra_js %}{% endblock extra_js %}
+{% block tail_body %}{% endblock tail_body %}
+</body>

@@ -1,0 +1,19 @@
+{% extends "neubite/templates/base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="four columns">
+    <form method="POST" action="">
+      {% if error %}
+        {{error}}
+      {% endif %}
+      <br><br>
+      <label for="email">Email:</label>
+      <input type="text" name="email" value="{{email}}"/>
+      <label for="password">Password:</label>
+      <input type="password" name="password" />
+      <input type="submit" value="Login" />
+    </form>
+  </div>
+</div>
+{% endblock content %}
