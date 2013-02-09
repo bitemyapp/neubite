@@ -1,7 +1,7 @@
 (ns neubite.routes.home
-  (:use compojure.core)
-  (:require [noir.response :refer [redirect]]
-            [neubite.middleware :refer [g put-context session-put!]]
+  (:use compojure.core
+        ring.util.response)
+  (:require [neubite.middleware :refer [g put-context]]
             [neubite.models :refer [auth-user get-user-by-email]]
             [neubite.views.common :refer [render-template]]))
 
@@ -18,7 +18,7 @@
     (if user?
       (do
         (session-put! :user-email (:email user?))
-        (redirect "/"))
+        (response (assoc (redirect "/") :session {:user-email nil})))
       (render-template "neubite/templates/login.html" {:error failed? :email email}))))
 
 (defn home-page []
@@ -26,7 +26,7 @@
   (render-template "neubite/templates/index.html" {}))
 
 (defroutes home-routes
-  (GET "/" [] (home-page))
-  (GET "/login/" {params :params} (login-page params))
+  (GET  "/" [] (home-page))
+  (GET  "/login/" {params :params} (login-page params))
   (POST "/login/" {params :params} (login-page params))
-  (GET "/logout/" [] (logout)))
+  (GET  "/logout/" [] (logout)))
