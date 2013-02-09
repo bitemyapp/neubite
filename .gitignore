@@ -7,4 +7,5 @@ pom.xml
 *.class
 /.lein-*
 /.env
-secrets
+secrets.sh
+
