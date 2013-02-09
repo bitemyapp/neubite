@@ -1,5 +1,6 @@
 (ns neubite.handler
-  (:use [compojure.handler :only [site]]
+  (:use carica.core
+        [compojure.handler :only [site]]
         [noir.validation :only [wrap-noir-validation]]
         [noir.cookies :only [wrap-noir-cookies]]
         [ring.middleware.multipart-params :only [wrap-multipart-params]]
@@ -10,6 +11,7 @@
         compojure.core)
   (:require [noir.util.middleware :as middleware]
             [noir.cookies :refer [wrap-noir-cookies]]
+            [ring.middleware.session.cookie :refer [cookie-store]]
             [compojure.route :as route]))
 
 (defroutes app-routes
@@ -23,15 +25,13 @@
   (println "shutting down..."))
 
 (def all-routes [admin-routes home-routes app-routes])
-;; (def app (middleware/app-handler all-routes))
 (def app (-> (apply routes all-routes)
              (site)
              (user-middleware)
              (context-middleware)
              (middleware/wrap-request-map)
-             (wrap-noir-validation)
-             (wrap-multipart-params)
-             (wrap-noir-cookies)))
+             (wrap-session handler {:store (cookie-store {:key (config :secret)})})
+             (wrap-multipart-params)))
 (def war-handler (middleware/war-handler app))
 
 (defn boot []
