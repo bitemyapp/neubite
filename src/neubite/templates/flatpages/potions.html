@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <meta name="author" content="Chris Allen" />
+   <title>Potion Recommender!</title>
+   <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css">
+   <style type="text/css">
+      body {
+        padding: 60px 0px 0px 40px;
+      }
+   </style>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+   <script src="/potions/dump.json"></script>
+   <script src="/potions/jquery.hotkeys.js"></script>
+   <script>
+     function add_ingredient_input() {
+       $("#input").append("<li class=\"ing\"><input class=\"ingredients\" type=\"text\"></input> <a class=\"btn delete\" href=\"#\">Delete</a>");
+       bind_autocomplete();
+     };
+     function what_should_be_made() {
+       var input_arr = [];
+       $('.ingredients').each(function(i, val){
+         maybe = $(val).val()
+         if (maybe != "") {
+           input_arr.push(maybe);
+         }
+       });
+       var should_make = [];
+       $.each(ing_array, function(i, val){
+         recipe_ingredients = val.slice(0, -1);
+         recipe_value = Number(val.slice(-1)[0].split("Value: ").slice(-1)[0]);
+         for (var j in input_arr) {
+           my_ing = input_arr[j];
+           my_ing_in_recipe = $.inArray(my_ing, recipe_ingredients);
+           if (my_ing_in_recipe != -1) {
+             recipe_ingredients = $.grep(recipe_ingredients, function(value, i){
+               return value != recipe_ingredients[my_ing_in_recipe];
+             });
+           }
+         }
+         if (recipe_ingredients.length == 0) {
+           should_make.push(val);
+         }
+       });
+       $('#result_list li').remove();
+       $.each(should_make, function(i, value) {
+         $('#result_list').append("<li>" + value.join(" "));
+       });
+       if (should_make.length == 0){
+         $('#result_list').append("<li>You don't have enough ingredients to make any worth-while potions, you should go gather more ingredients!");
+         $('#result_list').append("<li>I recommend acquiring Giant's Toe, Wheat, River Betty, Large Antlers, Chaurus Eggs, Garlic, Luna Moth Wing, and Vampire Dust if you can swing it.");
+       }
+     };
+      function bind_autocomplete() {
+       $(".ingredients").autocomplete({source: availableIngredients});
+       $(".delete").click(function() {
+         $(this).parent().remove();
+       });
+     };
+	$(function() {
+       $(document).bind('keydown', 'alt+i', add_ingredient_input);
+       $("#add_ing").click(function(){
+         add_ingredient_input();
+       });
+       $("#what_do").click(function(){
+         what_should_be_made();
+       });
+       bind_autocomplete();
+    });
+   </script>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30343266-1']);
+  _gaq.push(['_setDomainName', 'bitemyapp.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="fill">
+      <div class="container">
+        <a class="brand" href="#">Potions!</a>
+        <ul class="nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/code/">Code</a></li>
+          <li class="active"><a href="/potions/">Potions</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="hero-unit">
+      <h1>Potion Helper for Skyrim!</h1>
+      <h2>Input your ingredients here to see the most valuable potions.</h2>
+      <p>
+        Protips: Use down arrow to utilize the auto-completion.
+        Alt-i will add ingredient fields as well, but only
+        when you're not in a textfield.
+      </p>
+      <a id="add_ing" class="btn" href="#">+ Add Ingredient</a>
+      <ul>
+      <form id="input" style="margin: 10px 0 0 0;">
+        <li class="ing"><input class="ingredients" type="text"></input> <a class="btn delete" href="#">Delete</a>
+      </form>
+      </ul>
+      <br />
+      <a id="what_do" class="btn" href="#">Show Me what I should make!</a>
+      <div class="input">
+      </div>
+    </div>
+    <div class="row">
+      <div class="results">
+        <h3>You should make:</h3>
+        <ul id="result_list">
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
