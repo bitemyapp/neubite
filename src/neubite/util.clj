@@ -4,8 +4,7 @@
 (defn dissoc-in
   "Dissociates an entry from a nested associative structure where ks is a
   sequence of keys and returns a new nested structure."
-  {:added "1.5"
-   :static true}
+  {:static true}
   [m [k & ks]]
   (if ks
     (assoc m k (dissoc-in (get m k) ks))
