@@ -1,6 +1,15 @@
 (ns neubite.util
-  (:require [noir.io :as io]
-            [markdown.core :as md]))
+  (:require [noir.io :as io]))
+
+(defn dissoc-in
+  "Dissociates an entry from a nested associative structure where ks is a
+  sequence of keys and returns a new nested structure."
+  {:added "1.5"
+   :static true}
+  [m [k & ks]]
+  (if ks
+    (assoc m k (dissoc-in (get m k) ks))
+    (dissoc m k)))
 
 (defn format-time
   "formats the time using SimpleDateFormat, the default format is
@@ -8,10 +17,3 @@
   ([time] (format-time time "dd MMM, yyyy"))
   ([time fmt]
     (.format (new java.text.SimpleDateFormat fmt) time)))
-
-(defn md->html
-  "reads a markdown file from public/md and returns an HTML string"
-  [filename]
-  (->>
-    (io/slurp-resource filename)
-    (md/md-to-html-string)))

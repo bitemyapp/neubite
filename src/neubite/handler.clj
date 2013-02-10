@@ -26,11 +26,12 @@
 
 (def all-routes [admin-routes home-routes app-routes])
 (def app (-> (apply routes all-routes)
-             (site)
              (user-middleware)
              (context-middleware)
+             (site {:session {:cookie-name "session"
+                              :store (cookie-store
+                                      {:key (config :secret)})}})
              (middleware/wrap-request-map)
-             (wrap-session handler {:store (cookie-store {:key (config :secret)})})
              (wrap-multipart-params)))
 (def war-handler (middleware/war-handler app))
 

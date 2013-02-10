@@ -1,7 +1,6 @@
 (ns neubite.middleware
   (:use carica.core)
-  (:require [neubite.models :refer [get-user-by-email]]
-            [noir.cookies :refer [get-signed put-signed!]]))
+  (:require [neubite.models :refer [get-user-by-email]]))
 
 (def ^:dynamic g (atom {}))
 (def secret (config :secret))
@@ -10,12 +9,6 @@
   (if pred
     (apply wrapper handler args)
     handler))
-
-(defn session-get [key]
-  (get-signed secret key))
-
-(defn session-put! [key val]
-  (put-signed! secret key val))
 
 (defn put-context [key val]
   (swap! g assoc key val))
@@ -27,7 +20,7 @@
 
 (defn user-middleware [app]
   (fn [req]
-    (let [email (session-get "user-email")
+    (let [email (:user-email (:session req))
           user (if (not (= email "")) (get-user-by-email email) nil)]
       (when user
         (put-context :user user))
@@ -35,5 +28,5 @@
 
 (defn print-middleware [app]
   (fn [req]
-    (println (:uri req))
+    (println req)
     (app req)))

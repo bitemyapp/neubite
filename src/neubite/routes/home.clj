@@ -3,12 +3,8 @@
         ring.util.response)
   (:require [neubite.middleware :refer [g put-context]]
             [neubite.models :refer [auth-user get-user-by-email]]
-            [neubite.views.common :refer [render-template]]
-            [ring.middleware.session.cookie :refer [wrap-session]]))
-
-(defn logout []
-  (session-put! :user-email "")
-  (redirect "/"))
+            [neubite.util :refer [dissoc-in]]
+            [neubite.views.common :refer [render-template]]))
 
 (defn login-page [params]
   "login handler, GET and POST"
@@ -17,10 +13,12 @@
         user? (auth-user email password)
         failed? (if (and (string? email) (not user?)) "Failed to log you in." nil)]
     (if user?
-      (do
-        (session-put! :user-email (:email user?))
-        (response (assoc (redirect "/") :session {:user-email nil})))
+      (let [resp (assoc (redirect "/") :session {:user-email email})]
+        resp)
       (render-template "neubite/templates/login.html" {:error failed? :email email}))))
+
+(defn logout []
+  (dissoc-in (redirect "/") [:session :user-email]))
 
 (defn home-page []
   "index page"
