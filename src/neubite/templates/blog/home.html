@@ -10,7 +10,9 @@
 </div>
 <div class="row">
   <div class="twelve columns">
-    <p> Blah </p>
+    {% for blog in blogs %}
+      {{blog|render_post|safe}}
+    {% endfor %}
   </div>
 </div>
 {% endblock content %}
