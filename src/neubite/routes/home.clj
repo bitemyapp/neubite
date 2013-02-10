@@ -20,6 +20,10 @@
 (defn logout []
   (dissoc-in (redirect "/") [:session :user-email]))
 
+(defn potions []
+  "potions!"
+  (render-template "neubite/templates/flatpages/potions.html" {}))
+
 (defn home-page []
   "index page"
   (render-template "neubite/templates/index.html" {}))
@@ -30,6 +34,7 @@
 
 (defroutes home-routes
   (GET  "/" [] (home-page))
+  (GET  "/potions/" [] (potions))
   (GET  "/projects/" [] (home-page))
   (GET  "/login/" {params :params} (login-page params))
   (POST "/login/" {params :params} (login-page params))
