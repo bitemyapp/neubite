@@ -15,6 +15,9 @@
 (mc/ensure-index "users" {:email 1} {:unique true})
 (mc/ensure-index "posts" {:slug 1} {:unique true})
 
+(defn to-object-id [id]
+  (ObjectId. id))
+
 (defn get-user-by-email [email]
   (mc/find-one-as-map "users" {:email email}))
 
@@ -35,7 +38,7 @@
   (mc/remove "users" {:email email}))
 
 (defn get-document-by-id [coll id]
-  (mc/find-map-by-id coll (ObjectId. id)))
+  (mc/find-map-by-id coll (to-object-id id)))
 
 (defn update [coll id attrs]
   (let [existing (get-document-by-id coll id)

@@ -26,6 +26,7 @@
     <th>Title</th>
     <th>Slug</th>
     <th>View Post</th>
+    <th>Delete</th>
   </tr>
   {% for post in posts %}
   <tr>
@@ -39,12 +40,19 @@
       {{post.slug}}
     </td>
     <td>
-      <a class="button"  href="/admin/edit/posts/{{post._id}}/">View Post</a>
+      <a class="button" href="/admin/edit/posts/{{post._id}}/">View Post</a>
+    </td>
+    <td>
+      <form method="POST" action="/admin/delete/posts/{{post._id}}/">
+        <input type="hidden" name="id" value="{{post._id}}" />
+        <input type="hidden" name="coll" value="posts" />
+        <input type="submit" class="alert button" value="Delete"/>
+      </form>
     </td>
   </tr>
   {% endfor %}
 </table>
 <br>
-<a class="button" href="/admin/write/">Write Post</a>
+<a class="success button" href="/admin/write/">Write Post</a>
 
 {% endblock content %}
