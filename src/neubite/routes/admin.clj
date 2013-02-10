@@ -15,8 +15,6 @@
   "Delete stuff"
   (let [coll (:coll params)
         id (:id params)]
-    (println coll)
-    (println id)
     (if (and coll id)
       (do
         (mc/remove coll {:_id (to-object-id id)})
