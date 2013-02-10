@@ -70,5 +70,5 @@
 
 (defn get-most-recent-posts []
   (mq/with-collection "posts"
-    (mq/find {})
+    (mq/find {:published true})
     (mq/sort (sorted-map :date_created -1))))
