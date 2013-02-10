@@ -1,5 +1,4 @@
-(ns neubite.util
-  (:require [noir.io :as io]))
+(ns neubite.util)
 
 (defn dissoc-in
   "Dissociates an entry from a nested associative structure where ks is a
