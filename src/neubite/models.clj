@@ -1,6 +1,7 @@
 (ns neubite.models
   (:use carica.core
-        monger.operators)
+        monger.operators
+        slugify.core)
   (:require [monger.core :as mg]
             [monger.collection :as mc]
             [noir.util.crypt :as crypt]
@@ -12,6 +13,7 @@
 (DateTimeZone/setDefault DateTimeZone/UTC)
 (mg/connect-via-uri! (config :dburi))
 (mc/ensure-index "users" {:email 1} {:unique true})
+(mc/ensure-index "posts" {:slug 1} {:unique true})
 
 (defn get-user-by-email [email]
   (mc/find-one-as-map "users" {:email email}))
@@ -48,3 +50,12 @@
 
 (defn make-staff-by-id [id]
   (update-user-by-id id {:is_superuser nil :is_staff true}))
+
+(defn create-post [title body]
+  (mc/insert-and-return "posts" {:title title
+                                 :body body
+                                 :slug slugify(title)
+                                 :date_created (now)}))
+
+(defn get-most-recent-posts []
+  [])

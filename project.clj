@@ -8,6 +8,7 @@
                  [compojure "1.1.5"]
                  [clabango "0.4"]
                  [ring-server "0.2.7"]
+                 [slugify "0.0.1"]
                  [com.taoensso/timbre "1.2.0"]
                  [com.taoensso/tower "1.2.0"]
                  [com.novemberain/monger "1.4.2"]]
