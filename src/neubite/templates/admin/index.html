@@ -23,6 +23,7 @@
     <th>Date Created</th>
     <th>Title</th>
     <th>Slug</th>
+    <th>Published?</th>
     <th>Edit Post</th>
     <th>Delete</th>
   </tr>
@@ -36,6 +37,14 @@
     </td>
     <td>
       {{post.slug}}
+    </td>
+    <td>
+      {% if post.published %}
+        YEP!
+      {% endif %}
+      {% if not post.published %}
+        NOPE!
+      {% endif %}
     </td>
     <td>
       <a class="button" href="/admin/edit/post/{{post._id}}/">Edit Post</a>

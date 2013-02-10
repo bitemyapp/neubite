@@ -1,5 +1,14 @@
 {% extends "neubite/templates/base.html" %}
 
+{% block extra_css %}
+<style>
+project {
+  font-weight: bold;
+  font-size: 24px;
+}
+</style>
+{% endblock extra_css %}
+
 {% block content %}
 <div class="row">
   <div class="twelve columns">
@@ -10,7 +19,25 @@
 </div>
 <div class="row">
   <div class="twelve columns">
-    <p> Blah </p>
+    <h2>
+      Some stuff I've made or worked on
+    </h2>
+    <ul style="list-style-type: none;">
+      <li>
+        <project>Scroot</project> =>
+        Funky Django hack. Makes version controlled
+        and audited high-value Django models possible
+        in MySQL MyISAM. Done in a single weekend.
+        <a href="http://github.com/bitemyapp/scroot/" target="_blank">Github Page</a>
+      </li>
+      <li>
+        <project>The CMS for this site</project> =>
+        Made in Clojure, MongoDB, hosted on Heroku.
+        <a href="http://github.com/bitemyapp/neubite/" target="_blank">Github Page</a>
+      </li>
+      <li>
+      </li>
+    </ul>
   </div>
 </div>
 {% endblock content %}

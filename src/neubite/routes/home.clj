@@ -28,14 +28,14 @@
   "index page"
   (render-template "neubite/templates/index.html" {}))
 
-(defn projects-page []
+(defn projects []
   "projects page"
   (render-template "neubite/templates/projects.html" {}))
 
 (defroutes home-routes
   (GET  "/" [] (home-page))
   (GET  "/potions/" [] (potions))
-  (GET  "/projects/" [] (home-page))
+  (GET  "/projects/" [] (projects))
   (GET  "/login/" {params :params} (login-page params))
   (POST "/login/" {params :params} (login-page params))
   (GET  "/logout/" [] (logout)))
