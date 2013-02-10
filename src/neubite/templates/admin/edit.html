@@ -1,21 +1,29 @@
-{% extends 'admin/base.html' %}
+{% extends "neubite/templates/admin/base.html" %}
 
 {% block content %}
 <div class="row">
-  <br><br>
-  <a href="/admin/">Back to admin</a>
-  <br><br>
+  <div class="twelve columns">
+    <br><br>
+    <a href="/admin/">Back to admin</a>
+    <br><br>
+    <div class="twelve columns">
+      <table>
+        <tr>
+        {% for field in fields %}
+          <th>
+            {{field}}
+          </th>
+        {% endfor %}
+        </tr>
+        <tr>
+        {% for val in values %}
+          <td>
+            {{val}}
+          </td>
+        {% endfor %}
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
-<table class="responsive">
-  <tr>
-  {% for field in instance.show_fields %}
-    <th>{{field.capitalize()}}</th>
-    {% endfor %}
-  </tr>
-  <tr>
-  {% for field in instance.show_fields %}
-    <td>{{instance[field]}}</td>
-  {% endfor %}
-  </tr>
-</table>
 {% endblock content %}

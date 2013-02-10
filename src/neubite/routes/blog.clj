@@ -8,14 +8,6 @@
             [clabango.filters :refer [deftemplatefilter]]
             [neubite.views.common :refer [render-template]]))
 
-(deftemplatefilter render-blog [blog]
-  (let [title (:title blog)
-        body (:body blog)]
-    (render-template "neubite/templates/blog/post_partial.html" {})))
-
-(deftemplatefilter slugify-post [post]
-  (slugify (:title post)))
-
 (defn blog-home []
   "blog main page"
   (render-template "neubite/templates/blog/home.html" {}))

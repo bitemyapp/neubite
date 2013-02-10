@@ -34,8 +34,11 @@
 (defn remove-user [email]
   (mc/remove "users" {:email email}))
 
+(defn get-document-by-id [coll id]
+  (mc/find-map-by-id coll (ObjectId. id)))
+
 (defn update [coll id attrs]
-  (let [existing (mc/find-map-by-id coll id)
+  (let [existing (get-document-by-id coll id)
         updated (dissoc (merge existing attrs) :_id :file)]
     (mc/update-by-id coll id updated)))
 
@@ -54,7 +57,7 @@
 (defn create-post [title body]
   (mc/insert-and-return "posts" {:title title
                                  :body body
-                                 :slug slugify(title)
+                                 :slug (slugify title)
                                  :date_created (now)}))
 
 (defn get-most-recent-posts []

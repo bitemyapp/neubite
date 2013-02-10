@@ -8,79 +8,43 @@
     <th>Email</th>
     <th>Date Created</th>
     <th>Superuser?</th>
-    <th>Edit</th>
+    <th>View User</th>
   </tr>
   {% for user in users %}
   <tr>
     <td>{{user.email}}</td>
     <td>{{user.date_created}}</td>
     <td>{{user.is_superuser}}</td>
-    <td><a href="/admin/edit/user/{{user._id}}/">Edit</a></td>
+    <td><a class="button" href="/admin/edit/users/{{user._id}}/">View User</a></td>
   </tr>
   {% endfor %}
 </table>
-<h3>Tasks</h3>
+<h3>Posts</h3>
 <table class="responsive">
   <tr>
-    {% if user.is_superuser %}
-    <th>Customer Email</th>
-    {% endif %}
     <th>Date Created</th>
-    <th>Number of Words</th>
-    <th>Price</th>
-    <th>Show Task Body</th>
-    <th>Edit this Task</th>
-    <th>Number of Edits</th>
-    <th>Charged</th>
-    <th>Finished</th>
+    <th>Title</th>
+    <th>Slug</th>
+    <th>View Post</th>
   </tr>
-  {% for task in tasks %}
+  {% for post in posts %}
   <tr>
     <td>
-      {{task.customer}}
+      {{post.date_created}}
     </td>
     <td>
-      {{task.date_created}}
+      {{post.title}}
     </td>
     <td>
-      {{task.number_of_words}}
+      {{post.slug}}
     </td>
     <td>
-      {{task.price}}
-    </td>
-    <td>
-      <a href="/admin/task/body/{{task._id}}/" target="_blank">Show body</a>
-    </td>
-    <td>
-      <a class="button" href="/admin/task/edit/{{task._id}}/">Edit</a>
-    </td>
-    <td>
-      {{task.number_of_edits}}
-    </td>
-    <td>
-      {% if not task.charged %}
-      <form action="/admin/charge/" method="POST">
-        <input type="hidden" name="object_id" value="{{task.get_object_id()}}" />
-        <input type="submit" class="button" value="Charge" />
-      </form>
-      {% endif %}
-      {% if task.charged %}
-        {{task.charged}}
-      {% endif %}
-    </td>
-    <td>
-      {% if not task.finished %}
-      <form action="/admin/finish/" method="POST">
-        <input type="hidden" name="object_id" value="{{task._id}}" />
-        <input type="submit" class="button" value="Finished?" />
-      </form>
-      {% endif %}
-      {% if task.finished %}
-      {{task.finished}}
-      {% endif %}
+      <a class="button"  href="/admin/edit/posts/{{post._id}}/">View Post</a>
     </td>
   </tr>
   {% endfor %}
 </table>
+<br>
+<a class="button" href="/admin/write/">Write Post</a>
 
 {% endblock content %}
