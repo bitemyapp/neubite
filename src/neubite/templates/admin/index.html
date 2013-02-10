@@ -8,14 +8,12 @@
     <th>Email</th>
     <th>Date Created</th>
     <th>Superuser?</th>
-    <th>View User</th>
   </tr>
   {% for user in users %}
   <tr>
     <td>{{user.email}}</td>
     <td>{{user.date_created}}</td>
     <td>{{user.is_superuser}}</td>
-    <td><a class="button" href="/admin/edit/users/{{user._id}}/">View User</a></td>
   </tr>
   {% endfor %}
 </table>
@@ -25,7 +23,7 @@
     <th>Date Created</th>
     <th>Title</th>
     <th>Slug</th>
-    <th>View Post</th>
+    <th>Edit Post</th>
     <th>Delete</th>
   </tr>
   {% for post in posts %}
@@ -40,7 +38,7 @@
       {{post.slug}}
     </td>
     <td>
-      <a class="button" href="/admin/edit/posts/{{post._id}}/">View Post</a>
+      <a class="button" href="/admin/edit/post/{{post._id}}/">Edit Post</a>
     </td>
     <td>
       <form method="POST" action="/admin/delete/posts/{{post._id}}/">

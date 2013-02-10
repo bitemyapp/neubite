@@ -1,5 +1,6 @@
 (ns neubite.routes.admin
-  (:use compojure.core)
+  (:use compojure.core
+        ring.util.response)
   (:require [monger.collection :as mc]
             [clabango.filters :refer [deftemplatefilter]]
             [monger.query :as mq]
@@ -8,7 +9,8 @@
                                         superuser-only]]
             [neubite.models :refer [get-document-by-id
                                     create-post
-                                    to-object-id]]
+                                    to-object-id
+                                    update]]
             [neubite.views.common :refer [render-template]]))
 
 (defn delete [params]
@@ -33,13 +35,19 @@
        "neubite/templates/admin/write.html"
        {}))))
 
-(defn edit [coll id]
-  (let [doc? (get-document-by-id coll id)
-        fields (map name (keys doc?))
-        values (vals doc?)]
+(defn edit-post [params]
+  (let [id (:id params)
+        nt (:title params)
+        np (:body params)
+        edited? (and nt np)
+        doc? (get-document-by-id "posts" id)
+        title (or nt (:title doc?))
+        body (or np (:body doc?))]
+    (when edited?
+      (update "posts" id {:title title :body body}))
     (render-template
-     "neubite/templates/admin/edit.html"
-     {:fields fields :values values})))
+     "neubite/templates/admin/write.html"
+     {:title title :body body})))
 
 (defn admin-home []
   "admin home page"
@@ -56,5 +64,6 @@
   (POST "/admin/delete/:coll/:id/" {params :params} (superuser-only delete params))
   (GET  "/admin/write/" {params :params} (superuser-only write params))
   (POST "/admin/write/" {params :params} (superuser-only write params))
-  (GET  "/admin/edit/:coll/:id/" [coll id] (superuser-only edit coll id))
+  (GET  "/admin/edit/post/:id/" {params :params} (superuser-only edit-post params))
+  (POST  "/admin/edit/post/:id/" {params :params} (superuser-only edit-post params))
   (GET  "/admin/" [] (superuser-only admin-home)))

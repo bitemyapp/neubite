@@ -16,3 +16,15 @@ footer {
 .row, body, html {
     min-width: 768px !important;
 }
+.post {
+    background: #EFEFEF;
+    padding: 10px 10px 10px 10px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+.post .title {
+    font-size: 48px;
+    font-weight: bold;
+    text-decoration: none;
+    color: light-blue;
+}

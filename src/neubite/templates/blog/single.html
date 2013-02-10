@@ -3,14 +3,14 @@
 {% block content %}
 <div class="row">
   <div class="nine columns">
-    {% for post in posts %}
+    <a class="button" href="/blog/">Back to posts</a>
+    <br><br>
     <div class="post">
       <a class="title" href="/blog/{{post.slug}}/">
           {{post.title}}
       </a>
       {{post.body}}
     </div>
-    {% endfor %}
   </div>
 </div>
 {% endblock content %}

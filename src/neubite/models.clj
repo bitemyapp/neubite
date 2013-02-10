@@ -4,6 +4,7 @@
         slugify.core)
   (:require [monger.core :as mg]
             [monger.collection :as mc]
+            [monger.query :as mq]
             [noir.util.crypt :as crypt]
             [clj-time.core :refer [now]]
             monger.joda-time)
@@ -43,7 +44,7 @@
 (defn update [coll id attrs]
   (let [existing (get-document-by-id coll id)
         updated (dissoc (merge existing attrs) :_id :file)]
-    (mc/update-by-id coll id updated)))
+    (mc/update-by-id coll (to-object-id id) updated)))
 
 (defn update-user-by-id [id attrs]
   (update "users" id attrs))
@@ -61,7 +62,13 @@
   (mc/insert-and-return "posts" {:title title
                                  :body body
                                  :slug (slugify title)
-                                 :date_created (now)}))
+                                 :date_created (now)
+                                 :published nil}))
+
+(defn get-post-by-slug [slug]
+  (mc/find-one-as-map "posts" {:slug slug}))
 
 (defn get-most-recent-posts []
-  [])
+  (mq/with-collection "posts"
+    (mq/find {})
+    (mq/sort (sorted-map :date_created -1))))
