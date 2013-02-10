@@ -1,0 +1,21 @@
+{% extends "neubite/templates/admin/base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="twelve columns">
+    <a href="/admin/">Back to admin</a>
+    <br>
+    <form method="POST" action="">
+      {% if error %}
+        {{error}}
+      {% endif %}
+      <br><br>
+      <label for="title">Title:</label>
+      <input type="text" name="title" value="{{title}}"/>
+      <label for="body">Body:</label>
+      <textarea rows="20" cols="30" name="body">{{body}}</textarea>
+      <input class="button success" type="submit" value="Submit" />
+    </form>
+  </div>
+</div>
+{% endblock content %}
