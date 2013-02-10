@@ -7,6 +7,7 @@
         [ring.server.standalone :only [serve]]
         neubite.middleware
         neubite.routes.admin
+        neubite.routes.blog
         neubite.routes.home
         compojure.core)
   (:require [noir.util.middleware :as middleware]
@@ -24,7 +25,7 @@
 (defn destroy []
   (println "shutting down..."))
 
-(def all-routes [admin-routes home-routes app-routes])
+(def all-routes [admin-routes blog-routes home-routes app-routes])
 (def app (-> (apply routes all-routes)
              (user-middleware)
              (context-middleware)
