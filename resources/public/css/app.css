@@ -46,7 +46,7 @@ project {
 project:after {
   content: " => ";
 }
-ul.projects {
+ul {
   list-style-type: none;
 }
 ul.projects li {
