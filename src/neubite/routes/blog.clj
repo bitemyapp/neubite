@@ -22,5 +22,5 @@
     (render-template "neubite/templates/blog/home.html" {:posts posts})))
 
 (defroutes blog-routes
-  (GET "/blog/:slug/" [slug] (post-single slug))
-  (GET "/blog/" [] (blog-home)))
+  (GET "/post/:slug/" [slug] (post-single slug))
+  (GET "/" [] (blog-home)))

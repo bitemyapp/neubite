@@ -24,16 +24,16 @@
   "potions!"
   (render-template "neubite/templates/flatpages/potions.html" {}))
 
-(defn home-page []
-  "index page"
-  (render-template "neubite/templates/index.html" {}))
+(defn about-page []
+  "about page"
+  (render-template "neubite/templates/about.html" {}))
 
 (defn projects []
   "projects page"
   (render-template "neubite/templates/projects.html" {}))
 
 (defroutes home-routes
-  (GET  "/" [] (home-page))
+  (GET  "/about/" [] (about-page))
   (GET  "/potions/" [] (potions))
   (GET  "/projects/" [] (projects))
   (GET  "/login/" {params :params} (login-page params))
