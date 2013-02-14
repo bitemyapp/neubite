@@ -15,7 +15,8 @@
             [monger.collection :as mc]
             [neubite.config :refer [config]]
             [ring.middleware.session.cookie :refer [cookie-store]]
-            [compojure.route :as route]))
+            [compojure.route :as route])
+  (:import [org.joda.time DateTimeZone]))
 
 (defroutes app-routes
   (route/resources "/")

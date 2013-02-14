@@ -8,8 +8,7 @@
             [clj-time.core :refer [now]]
             [neubite.config :refer [config]]
             monger.joda-time)
-  (:import [org.bson.types ObjectId]
-           [org.joda.time DateTimeZone]))
+  (:import [org.bson.types ObjectId]))
 
 (defn to-object-id [id]
   (cond
