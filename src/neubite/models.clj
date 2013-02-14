@@ -21,6 +21,7 @@
    (instance? ObjectId id) id
    :else (ObjectId. id)))
 
+(declare get-user-by-email)
 (defn create-user [email password]
   (if (get-user-by-email email)
     nil
