@@ -1,10 +1,8 @@
 (ns neubite.middleware
-  (:use carica.core
-        ring.util.response)
+  (:use ring.util.response)
   (:require [neubite.models :refer [get-user-by-email]]))
 
 (def ^:dynamic g (atom {}))
-(def secret (config :secret))
 
 (defn wrap-if [handler pred wrapper & args]
   (if pred

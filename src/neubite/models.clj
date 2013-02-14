@@ -1,12 +1,12 @@
 (ns neubite.models
-  (:use carica.core
-        monger.operators
+  (:use monger.operators
         slugify.core)
   (:require [monger.core :as mg]
             [monger.collection :as mc]
             [monger.query :as mq]
             [noir.util.crypt :as crypt]
             [clj-time.core :refer [now]]
+            [neubite.config :refer [config]]
             monger.joda-time)
   (:import [org.bson.types ObjectId]
            [org.joda.time DateTimeZone]))

@@ -2,7 +2,6 @@
   :description "Portfolio site"
   :url "http://www.bitemyapp.com/"
   :dependencies [[org.clojure/clojure "1.4.0"]
-                 [sonian/carica "1.0.2"]
                  [lib-noir "0.3.5"]
                  [clj-time "0.4.4"]
                  [compojure "1.1.5"]

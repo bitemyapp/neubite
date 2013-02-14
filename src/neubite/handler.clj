@@ -1,6 +1,5 @@
 (ns neubite.handler
-  (:use carica.core
-        [compojure.handler :only [site]]
+  (:use [compojure.handler :only [site]]
         [noir.validation :only [wrap-noir-validation]]
         [noir.cookies :only [wrap-noir-cookies]]
         [ring.middleware.multipart-params :only [wrap-multipart-params]]
@@ -12,6 +11,7 @@
         compojure.core)
   (:require [noir.util.middleware :as middleware]
             [noir.cookies :refer [wrap-noir-cookies]]
+            [neubite.config :refer [config]]
             [ring.middleware.session.cookie :refer [cookie-store]]
             [compojure.route :as route]))
 
