@@ -5,6 +5,16 @@
 project {
   font-weight: bold;
   font-size: 24px;
+  color: #006400;
+}
+project:after {
+  content: " => ";
+}
+ul {
+  list-style-type: none;
+}
+ul li {
+  margin-top: 15px;
 }
 </style>
 {% endblock extra_css %}
@@ -12,30 +22,85 @@ project {
 {% block content %}
 <div class="row">
   <div class="twelve columns">
-    <a href="/">
-      <h1>bitemyapp</h1>
-    </a>
-  </div>
-</div>
-<div class="row">
-  <div class="twelve columns">
     <h2>
       Some stuff I've made or worked on
     </h2>
-    <ul style="list-style-type: none;">
+    <ul>
       <li>
-        <project>Scroot</project> =>
+        <project>Potions!</project>
+        Helps Skyrim players make optimal potion-making decisions.
+        Made in static HTML, CSS, JS and some funky JSON I generated
+        with Python from an obscure excel spreadsheet.
+        <a href="/potions/">Potions!</a>
+      </li>
+
+      <li>
+        <project>Scroot</project>
         Funky Django hack. Makes version controlled
         and audited high-value Django models possible
-        in MySQL MyISAM. Done in a single weekend.
-        <a href="http://github.com/bitemyapp/scroot/" target="_blank">Github Page</a>
+        in MySQL MyISAM. Created instead of reusing an
+        existing module because MyISAM doesn't have
+        real transactions. Done in a single weekend.
+        <a href="http://github.com/bitemyapp/scroot/">Github Page</a>
       </li>
+
       <li>
-        <project>The CMS for this site</project> =>
+        <project>The CMS for this site</project>
         Made in Clojure, MongoDB, hosted on Heroku.
-        <a href="http://github.com/bitemyapp/neubite/" target="_blank">Github Page</a>
+        <a href="http://github.com/bitemyapp/neubite/">Github Page</a>
       </li>
+
       <li>
+        <project>Dotfiles</project>
+        I often use this to teach people how to write Emacs
+        Lisp or configure their vim editor. Trivially
+        redeployable so that I can hack comfortably anywhere
+        there's a *nix.
+        <a href="https://github.com/bitemyapp/dotfiles/">Github Page</a>
+      </li>
+
+      <li>
+        <project>HNOfficeHours</project>
+        Designed to allow people to offer advice/expertise, or seek
+        people offering advice for a given problem/specialty. Includes
+        scheduling and search. Fun weekend hack from 2.5 years ago.
+        Now deprecated in favor of better alternatives.
+        <a href="https://github.com/ezl/hnofficehours/">Github Page</a>
+      </li>
+
+      <li>
+        <project>Github Dark Theme</project>
+        Started from somebody else's work that I can't track down from awhile
+        back, it's a dark theme for Github that actually works. I modified it
+        to not look horrible. Might need an update soon.
+        <a href="https://github.com/bitemyapp/github-dark-theme">Github Page</a>
+      </li>
+
+      <li>
+        <project>Clone of the original Hacker Typer.</project>
+        Funny little hack to clone Hacker Typer for Emacs instead of the
+        web. Mine involved a lot less code ;)
+        <a href="http://hackertyper.net/">
+          Original hacker typer here!
+        </a>
+        <a href="https://github.com/bitemyapp/hacker-type-emacs">Github Page</a>
+      </li>
+
+      <li>
+        <project>Thodol Wiki</project>
+        Quickie micro-wiki. I wrote it for a friend who wanted
+        something he could use but also hack on. I should rewrite
+        it in Clojure soon.
+        <a href="https://github.com/bitemyapp/thodol">Github Page</a>
+      </li>
+
+      <li>
+        <project>Django Pagination</project>
+        Pagination for Django, forked because original
+        creator disappeared and there were bugs. Until Django
+        added official pagination support, this was the only
+        truly shake-n-bake pagination module that worked.
+        <a href="https://github.com/bitemyapp/pagination">Github Page</a>
       </li>
     </ul>
   </div>
