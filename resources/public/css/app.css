@@ -17,11 +17,17 @@ footer {
     min-width: 768px !important;
 }
 .post {
-    background: #EFEFEF;
+    background: #F3F3F3;
     padding: 10px 10px 10px 10px;
     -moz-border-radius: 15px;
     border-radius: 15px;
     margin-bottom: 10px;
+}
+.post a {
+    color: orangered;
+}
+.post a:hover {
+    color: #FF69B4;
 }
 .post .title {
     font-size: 48px;
@@ -42,4 +48,7 @@ ul.projects {
 }
 ul.projects li {
   margin-top: 15px;
+}
+pre {
+    margin-bottom: 17px;
 }
