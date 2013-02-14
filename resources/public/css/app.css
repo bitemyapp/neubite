@@ -26,6 +26,9 @@ footer {
 .post a {
     color: orangered;
 }
+.post div.title {
+    margin-bottom: 10px;
+}
 .post a:hover {
     color: #FF69B4;
 }

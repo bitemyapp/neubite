@@ -1,2 +1,10 @@
-<h2>{{title}}</h2>
-<p>{{content}}</p>
+<div class="post">
+  <div class="title">
+    <a class="title" href="/post/{{post.slug}}/">
+      {{post.title}}
+    </a>
+  </div>
+  <div class="body">
+    {{post.body}}
+  </div>
+</div>

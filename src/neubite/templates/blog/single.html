@@ -5,12 +5,7 @@
   <div class="nine columns">
     <a class="button" href="/">Back to posts</a>
     <br><br>
-    <div class="post">
-      <a class="title" href="/post/{{post.slug}}/">
-          {{post.title}}
-      </a>
-      {{post.body}}
-    </div>
+    {% include "neubite/templates/blog/post_partial.html" %}
   </div>
 </div>
 {% endblock content %}

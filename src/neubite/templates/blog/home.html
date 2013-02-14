@@ -3,14 +3,18 @@
 {% block content %}
 <div class="row">
   <div class="nine columns">
-    {% for post in posts %}
+  {% for post in posts %}
     <div class="post">
-      <a class="title" href="/post/{{post.slug}}/">
-          {{post.title}}
-      </a>
+      <div class="title">
+        <a class="title" href="/post/{{post.slug}}/">
+        {{post.title}}
+        </a>
+      </div>
+      <div class="body">
       {{post.body}}
+      </div>
     </div>
-    {% endfor %}
+  {% endfor %}
   </div>
 </div>
 {% endblock content %}
