@@ -11,6 +11,8 @@
         compojure.core)
   (:require [noir.util.middleware :as middleware]
             [noir.cookies :refer [wrap-noir-cookies]]
+            [monger.core :as mg]
+            [monger.collection :as mc]
             [neubite.config :refer [config]]
             [ring.middleware.session.cookie :refer [cookie-store]]
             [compojure.route :as route]))
@@ -20,6 +22,10 @@
   (route/not-found "Not Found"))
 
 (defn init []
+  (DateTimeZone/setDefault DateTimeZone/UTC)
+  (mg/connect-via-uri! (config :dburi))
+  (mc/ensure-index "users" {:email 1} {:unique true})
+  (mc/ensure-index "posts" {:slug 1} {:unique true})
   (println "neubite started successfully..."))
 
 (defn destroy []

@@ -11,11 +11,6 @@
   (:import [org.bson.types ObjectId]
            [org.joda.time DateTimeZone]))
 
-(DateTimeZone/setDefault DateTimeZone/UTC)
-(mg/connect-via-uri! (config :dburi))
-(mc/ensure-index "users" {:email 1} {:unique true})
-(mc/ensure-index "posts" {:slug 1} {:unique true})
-
 (defn to-object-id [id]
   (cond
    (instance? ObjectId id) id
