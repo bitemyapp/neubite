@@ -23,7 +23,7 @@
     <th>Date Created</th>
     <th>Title</th>
     <th>Slug</th>
-    <th>Published?</th>
+    <th>Publish</th>
     <th>Edit Post</th>
     <th>Delete</th>
   </tr>
@@ -40,10 +40,18 @@
     </td>
     <td>
       {% if post.published %}
-        YEP!
+      <form method="POST" action="/admin/publish/posts/{{post._id}}/">
+        <input type="hidden" name="id" value="{{post._id}}" />
+        <input type="hidden" name="action" value="hide" />
+        <input type="submit" class="alert button" value="Hide"/>
+      </form>
       {% endif %}
       {% if not post.published %}
-        NOPE!
+      <form method="POST" action="/admin/publish/posts/{{post._id}}/">
+        <input type="hidden" name="id" value="{{post._id}}" />
+        <input type="hidden" name="action" value="publish" />
+        <input type="submit" class="success button" value="Publish"/>
+      </form>
       {% endif %}
     </td>
     <td>

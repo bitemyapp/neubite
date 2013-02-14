@@ -13,6 +13,16 @@
                                     update]]
             [neubite.views.common :refer [render-template]]))
 
+(defn publish [params]
+  "Delete stuff"
+  (let [publish (= (:action params) "publish")
+        id (:id params)]
+    (if id
+      (do
+        (update "posts" id {:published publish})
+        (redirect "/admin/"))
+      "No id found")))
+
 (defn delete [params]
   "Delete stuff"
   (let [coll (:coll params)
@@ -61,6 +71,7 @@
      {:users users :posts posts})))
 
 (defroutes admin-routes
+  (POST "/admin/publish/posts/:id/" {params :params} (superuser-only publish params))
   (POST "/admin/delete/:coll/:id/" {params :params} (superuser-only delete params))
   (GET  "/admin/write/" {params :params} (superuser-only write params))
   (POST "/admin/write/" {params :params} (superuser-only write params))

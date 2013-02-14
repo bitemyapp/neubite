@@ -17,10 +17,9 @@
 (mc/ensure-index "posts" {:slug 1} {:unique true})
 
 (defn to-object-id [id]
-  (ObjectId. id))
-
-(defn get-user-by-email [email]
-  (mc/find-one-as-map "users" {:email email}))
+  (cond
+   (instance? ObjectId id) id
+   :else (ObjectId. id)))
 
 (defn create-user [email password]
   (if (get-user-by-email email)
@@ -57,6 +56,9 @@
 
 (defn make-staff-by-id [id]
   (update-user-by-id id {:is_superuser nil :is_staff true}))
+
+(defn get-user-by-email [email]
+  (mc/find-one-as-map "users" {:email email}))
 
 (defn create-post [title body]
   (mc/insert-and-return "posts" {:title title
