@@ -22,7 +22,7 @@
   <tr>
     <th>Date Created</th>
     <th>Title</th>
-    <th>Slug</th>
+    <th>Direct Link</th>
     <th>Publish</th>
     <th>Edit Post</th>
     <th>Delete</th>
@@ -36,7 +36,7 @@
       {{post.title}}
     </td>
     <td>
-      {{post.slug}}
+      <a href="/post/{{post.slug}}/" target="_blank">{{post.slug}}</a>
     </td>
     <td>
       {% if post.published %}
