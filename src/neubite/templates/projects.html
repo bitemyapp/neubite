@@ -1,31 +1,12 @@
 {% extends "neubite/templates/base.html" %}
 
-{% block extra_css %}
-<style>
-project {
-  font-weight: bold;
-  font-size: 24px;
-  color: #006400;
-}
-project:after {
-  content: " => ";
-}
-ul {
-  list-style-type: none;
-}
-ul li {
-  margin-top: 15px;
-}
-</style>
-{% endblock extra_css %}
-
 {% block content %}
 <div class="row">
   <div class="twelve columns">
     <h2>
-      Some stuff I've made or worked on
+      Stuff I've made
     </h2>
-    <ul>
+    <ul class="projects">
       <li>
         <project>Potions!</project>
         Helps Skyrim players make optimal potion-making decisions.
@@ -57,15 +38,6 @@ ul li {
         redeployable so that I can hack comfortably anywhere
         there's a *nix.
         <a href="https://github.com/bitemyapp/dotfiles/">Github Page</a>
-      </li>
-
-      <li>
-        <project>HNOfficeHours</project>
-        Designed to allow people to offer advice/expertise, or seek
-        people offering advice for a given problem/specialty. Includes
-        scheduling and search. Fun weekend hack from 2.5 years ago.
-        Now deprecated in favor of better alternatives.
-        <a href="https://github.com/ezl/hnofficehours/">Github Page</a>
       </li>
 
       <li>
@@ -101,6 +73,31 @@ ul li {
         added official pagination support, this was the only
         truly shake-n-bake pagination module that worked.
         <a href="https://github.com/bitemyapp/pagination">Github Page</a>
+      </li>
+      <li>
+        <project>Redoot</project>
+        The Reddit bot that gets you to buy crap from Woot!
+        Rather than naively posting whatever is on woot directly
+        to the subreddit as a submission, it treats it as a
+        synchronization problem. It tracks what has already been
+        posted by checking the posts on the subreddit to see if it’d
+        already posted something.
+        <a href="https://github.com/bitemyapp/redoot">Github Page</a>
+      </li>
+    </ul>
+
+    <h2>
+      Stuff I've worked on
+    </h2>
+    <ul class="projects">
+      <li>
+        <project>HNOfficeHours</project>
+        Designed to allow people to offer advice/expertise, or seek
+        people offering advice for a given problem/specialty. Includes
+        scheduling and search. Fun weekend hack from 2.5 years ago.
+        Now deprecated in favor of better alternatives.
+        <a href="https://github.com/ezl/hnofficehours/">Original Github Page</a>
+        <a href="https://github.com/bitemyapp/hnofficehours/">My later fork</a>
       </li>
     </ul>
   </div>

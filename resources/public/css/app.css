@@ -28,3 +28,17 @@ footer {
     text-decoration: none;
     color: light-blue;
 }
+project {
+  font-weight: bold;
+  font-size: 24px;
+  color: #006400;
+}
+project:after {
+  content: " => ";
+}
+ul.projects {
+  list-style-type: none;
+}
+ul.projects li {
+  margin-top: 15px;
+}
