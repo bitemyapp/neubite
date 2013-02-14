@@ -26,7 +26,8 @@
   (DateTimeZone/setDefault DateTimeZone/UTC)
   (mg/connect-via-uri! (config :dburi))
   (mc/ensure-index "users" {:email 1} {:unique true})
-  (mc/ensure-index "posts" {:slug 1} {:unique true}))
+  (mc/ensure-index "posts" {:slug 1} {:unique true})
+  (mc/ensure-index "flatpages" {:url 1} {:unique true}))
 
 (defn init []
   (init-db)

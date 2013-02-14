@@ -69,3 +69,11 @@
   (mq/with-collection "posts"
     (mq/find {:published true})
     (mq/sort (sorted-map :date_created -1))))
+
+(defn create-flatpage [url body]
+  (mc/insert-and-return "flatpages" {:url url
+                                     :body body
+                                     :date_created (now)}))
+
+(defn get-flatpage-by-url [url]
+  (mc/find-one-as-map "flatpages" {:url url}))
