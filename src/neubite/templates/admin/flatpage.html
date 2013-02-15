@@ -1,0 +1,29 @@
+{% extends "neubite/templates/admin/base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="twelve columns">
+    <a href="/admin/">Back to admin</a>
+    <br>
+    <form method="POST" action="/admin/write/flatpage/">
+      {% if error %}
+        {{error}}
+      {% endif %}
+      <br><br>
+      <label for="url">URL:</label>
+      <input type="text" name="url" value="{{url}}"/>
+
+      <label for="content">Content:</label>
+      <textarea rows="20" cols="30" name="content">{{content}}</textarea>
+
+      <label for="css">CSS:</label>
+      <textarea rows="20" cols="30" name="css">{{css}}</textarea>
+
+      <label for="js">JS:</label>
+      <textarea rows="20" cols="30" name="js">{{js}}</textarea>
+
+      <input class="button success" type="submit" value="Post" />
+    </form>
+  </div>
+</div>
+{% endblock content %}

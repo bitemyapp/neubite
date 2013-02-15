@@ -17,6 +17,7 @@
   </tr>
   {% endfor %}
 </table>
+
 <h3>Posts</h3>
 <table class="responsive">
   <tr>
@@ -69,5 +70,58 @@
 </table>
 <br>
 <a class="success button" href="/admin/write/">Write Post</a>
+
+<h3>Flatpages</h3>
+<table class="responsive">
+  <tr>
+    <th>URL</th>
+    <th>Date Created</th>
+    <th>Direct Link</th>
+    <th>Publish</th>
+    <th>Edit Page</th>
+    <th>Delete</th>
+  </tr>
+  {% for page in flatpages %}
+  <tr>
+    <td>
+      {{page.url}}
+    </td>
+    <td>
+      {{page.date_created}}
+    </td>
+    <td>
+      <a href="/{{page.url}}/" target="_blank">{{page.url}}</a>
+    </td>
+    <td>
+      {% if page.published %}
+      <form method="POST" action="/admin/publish/flatpages/{{page._id}}/">
+        <input type="hidden" name="id" value="{{page._id}}" />
+        <input type="hidden" name="action" value="hide" />
+        <input type="submit" class="alert button" value="Hide"/>
+      </form>
+      {% endif %}
+      {% if not page.published %}
+      <form method="POST" action="/admin/publish/flatpages/{{page._id}}/">
+        <input type="hidden" name="id" value="{{page._id}}" />
+        <input type="hidden" name="action" value="publish" />
+        <input type="submit" class="success button" value="Publish"/>
+      </form>
+      {% endif %}
+    </td>
+    <td>
+      <a class="button" href="/admin/edit/page/{{page._id}}/">Edit Page</a>
+    </td>
+    <td>
+      <form method="POST" action="/admin/delete/flatpages/{{page._id}}/">
+        <input type="hidden" name="id" value="{{page._id}}" />
+        <input type="hidden" name="coll" value="flatpages" />
+        <input type="submit" class="alert button" value="Delete"/>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<br>
+<a class="success button" href="/admin/write/flatpage/">Write Flatpage</a>
 
 {% endblock content %}

@@ -69,9 +69,11 @@
     (mq/find {:published true})
     (mq/sort (sorted-map :date_created -1))))
 
-(defn create-flatpage [url body]
+(defn create-flatpage [url content css js]
   (mc/insert-and-return "flatpages" {:url url
-                                     :body body
+                                     :content content
+                                     :js js
+                                     :css css
                                      :date_created (now)}))
 
 (defn get-flatpage-by-url [url]

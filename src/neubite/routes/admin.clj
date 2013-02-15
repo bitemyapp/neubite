@@ -8,18 +8,45 @@
                                         put-context
                                         superuser-only]]
             [neubite.models :refer [get-document-by-id
+                                    create-flatpage
+                                    get-flatpage-by-url
                                     create-post
                                     to-object-id
                                     update]]
             [neubite.views.common :refer [render-template]]))
 
+(defn edit-flatpage [params]
+  "Edit a flatpage"
+  (let [id (:id params)
+        flatpage (get-document-by-id "flatpages" id)]
+    (make-flatpage (merge {:edit true} flatpage))))
+
+(defn make-flatpage [params]
+  "Make a flatpage"
+  (let [url (:url params)
+        content (:content params)
+        css (:css params)
+        js (:js params)
+        edit (:edit params)]
+    (if (and url (not edit))
+      (let [extant (get-flatpage-by-url url)]
+        (if extant
+          (update "flatpages" (:_id extant) (merge extant {:url url :content content :css css :js js}))
+          (create-flatpage url content css js))
+        (redirect "/admin/"))
+      (render-template "neubite/templates/admin/flatpage.html" {:url url
+                                                                :content content
+                                                                :css css
+                                                                :js js}))))
+
 (defn publish [params]
-  "Delete stuff"
+  "Publish stuff"
   (let [publish (= (:action params) "publish")
+        coll (:coll params)
         id (:id params)]
-    (if id
+    (if (and id coll)
       (do
-        (update "posts" id {:published publish})
+        (update coll id {:published publish})
         (redirect "/admin/"))
       "No id found")))
 
@@ -65,13 +92,20 @@
                 (mq/find {}))
         posts (mq/with-collection "posts"
                 (mq/find {})
-                (mq/sort (sorted-map :date_created -1)))]
+                (mq/sort (sorted-map :date_created -1)))
+        flatpages (mq/with-collection "flatpages"
+                    (mq/find {})
+                    (mq/sort (sorted-map :date_created -1)))]
     (render-template
      "neubite/templates/admin/index.html"
-     {:users users :posts posts})))
+     {:users users :posts posts :flatpages flatpages})))
 
 (defroutes admin-routes
-  (POST "/admin/publish/posts/:id/" {params :params} (superuser-only publish params))
+  (GET "/admin/edit/page/:id/" {params :params} (superuser-only edit-flatpage params))
+  (POST "/admin/edit/page/:id/" {params :params} (superuser-only edit-flatpage params))
+  (GET "/admin/write/flatpage/" {params :params} (superuser-only make-flatpage params))
+  (POST "/admin/write/flatpage/" {params :params} (superuser-only make-flatpage params))
+  (POST "/admin/publish/:coll/:id/" {params :params} (superuser-only publish params))
   (POST "/admin/delete/:coll/:id/" {params :params} (superuser-only delete params))
   (GET  "/admin/write/" {params :params} (superuser-only write params))
   (POST "/admin/write/" {params :params} (superuser-only write params))

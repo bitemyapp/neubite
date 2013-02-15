@@ -33,9 +33,6 @@
   (render-template "neubite/templates/projects.html" {}))
 
 (defroutes home-routes
-  (GET  "/about/" [] (about-page))
-  (GET  "/potions/" [] (potions))
-  (GET  "/projects/" [] (projects))
   (GET  "/login/" {params :params} (login-page params))
   (POST "/login/" {params :params} (login-page params))
   (GET  "/logout/" [] (logout)))
