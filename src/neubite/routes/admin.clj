@@ -15,12 +15,6 @@
                                     update]]
             [neubite.views.common :refer [render-template]]))
 
-(defn edit-flatpage [params]
-  "Edit a flatpage"
-  (let [id (:id params)
-        flatpage (get-document-by-id "flatpages" id)]
-    (make-flatpage (merge {:edit true} flatpage))))
-
 (defn make-flatpage [params]
   "Make a flatpage"
   (let [url (:url params)
@@ -38,6 +32,12 @@
                                                                 :content content
                                                                 :css css
                                                                 :js js}))))
+
+(defn edit-flatpage [params]
+  "Edit a flatpage"
+  (let [id (:id params)
+        flatpage (get-document-by-id "flatpages" id)]
+    (make-flatpage (merge {:edit true} flatpage))))
 
 (defn publish [params]
   "Publish stuff"
