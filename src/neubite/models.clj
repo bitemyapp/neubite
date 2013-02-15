@@ -36,9 +36,8 @@
   (mc/find-map-by-id coll (to-object-id id)))
 
 (defn update [coll id attrs]
-  (let [existing (get-document-by-id coll id)
-        updated (dissoc (merge existing attrs) :_id :file)]
-    (mc/update-by-id coll (to-object-id id) updated)))
+  (let [updated (dissoc attrs :_id :file)]
+    (mc/update-by-id coll (to-object-id id) {$set updated})))
 
 (defn update-user-by-id [id attrs]
   (update "users" id attrs))
