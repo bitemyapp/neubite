@@ -2,7 +2,8 @@
   (:use ring.util.response)
   (:require [neubite.models :refer [get-user-by-email]]))
 
-(def ^:dynamic g (atom {}))
+
+(declare ^:dynamic g)
 
 (defn wrap-if [handler pred wrapper & args]
   (if pred
@@ -14,8 +15,8 @@
 
 (defn context-middleware [app]
   (fn [req]
-    (reset! g {})
-    (app req)))
+    (binding [g (atom {})]
+      (app req))))
 
 (defn user-middleware [app]
   (fn [req]
