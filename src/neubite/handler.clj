@@ -36,7 +36,7 @@
 (defn destroy []
   (println "shutting down..."))
 
-(def all-routes [admin-routes blog-routes home-routes app-routes])
+(def all-routes [admin-routes home-routes blog-routes app-routes])
 (def app (-> (apply routes all-routes)
              (user-middleware)
              (context-middleware)
