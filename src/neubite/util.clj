@@ -1,5 +1,9 @@
 (ns neubite.util)
 
+(defn random-string [length]
+  (let [ascii-codes (concat (range 48 58) (range 66 91) (range 97 123))]
+    (apply str (repeatedly length #(char (rand-nth ascii-codes))))))
+
 (defn dissoc-in
   "Dissociates an entry from a nested associative structure where ks is a
   sequence of keys and returns a new nested structure."
