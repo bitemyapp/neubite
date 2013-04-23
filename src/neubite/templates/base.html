@@ -69,25 +69,9 @@
 {% endblock footer %}
 
 {% block js %}
-<script src="/js/analytics.min.js"></script>
 {% endblock js %}
+
 {% block analytics %}
-
-<script type="text/javascript">
-analytics.initialize({
-    'Google Analytics' : {
-      trackingId              : 'UA-37638718-1',
-      enhancedLinkAttribution : false,
-      domain : 'edithero.com',
-      siteSpeedSampleRate : 5
-    },
-    'Mixpanel' : {
-      token : "cfdda37a0e000380cecc305830b89519",
-      people : true
-    }
-});
-</script>
-
 {% endblock analytics %}
 {% block extra_js %}{% endblock extra_js %}
 {% block tail_body %}{% endblock tail_body %}
