@@ -1,4 +1,4 @@
-(defproject neubite "0.0.1"
+(defproject neubite "0.0.2"
   :description "Portfolio site"
   :url "http://www.bitemyapp.com/"
   :dependencies [[org.clojure/clojure "1.4.0"]
