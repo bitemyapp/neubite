@@ -2,7 +2,6 @@
   (:use compojure.core
         ring.util.response)
   (:require [monger.collection :as mc]
-            [clabango.filters :refer [deftemplatefilter]]
             [monger.query :as mq]
             [neubite.middleware :refer [g
                                         put-context

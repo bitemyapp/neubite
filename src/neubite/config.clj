@@ -1,7 +1,6 @@
 (ns neubite.config)
 
-(def config {:dburi (get (System/getenv) "DATABASE_URL")
+(def config {:dburi (or (get (System/getenv) "DATABASE_URL") "mongodb://localhost:27017/neubite")
              :secret (get (System/getenv) "SECRET_KEY")
-             ; :ssl (get (System/getenv) "SSL")
              :ssl nil
              :admins ["cma@bitemyapp.com"]})

@@ -9,7 +9,6 @@
                                     get-post-by-slug
                                     get-user-by-email]]
             [neubite.util :refer [dissoc-in]]
-            [clabango.filters :refer [deftemplatefilter]]
             [neubite.views.common :refer [render-template]]))
 
 (defn flatpage [params]
