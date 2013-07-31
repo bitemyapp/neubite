@@ -1,7 +1,7 @@
 (defproject neubite "0.0.4"
   :description "Portfolio site"
   :url "http://www.bitemyapp.com/"
-  :dependencies [[org.clojure/clojure "1.4.0"]
+  :dependencies [[org.clojure/clojure "1.5.1"]
                  [lib-noir "0.3.5"]
                  [clj-time "0.4.4"]
                  [compojure "1.1.5"]
