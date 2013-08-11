@@ -3,9 +3,7 @@
         ring.util.response)
   (:require [monger.collection :as mc]
             [monger.query :as mq]
-            [neubite.middleware :refer [g
-                                        put-context
-                                        superuser-only]]
+            [neubite.middleware :refer [superuser-only]]
             [neubite.models :refer [get-document-by-id
                                     create-flatpage
                                     get-flatpage-by-url
@@ -14,7 +12,7 @@
                                     update]]
             [neubite.views.common :refer [render-template]]))
 
-(defn make-flatpage [params]
+(defn make-flatpage [request params]
   "Make a flatpage"
   (let [url (:url params)
         content (:content params)
@@ -32,13 +30,13 @@
                                                                 :css css
                                                                 :js js}))))
 
-(defn edit-flatpage [params]
+(defn edit-flatpage [request params]
   "Edit a flatpage"
   (let [id (:id params)
         flatpage (get-document-by-id "flatpages" id)]
-    (make-flatpage (merge {:edit true} flatpage))))
+    (make-flatpage request (merge {:edit true} flatpage))))
 
-(defn publish [params]
+(defn publish [request params]
   "Publish stuff"
   (let [publish (= (:action params) "publish")
         coll (:coll params)
@@ -49,7 +47,7 @@
         (redirect "/admin/"))
       "No id found")))
 
-(defn delete [params]
+(defn delete [request params]
   "Delete stuff"
   (let [coll (:coll params)
         id (:id params)]
@@ -59,7 +57,7 @@
         (redirect "/admin/"))
       "blah")))
 
-(defn write [params]
+(defn write [request params]
   "Put up posts"
   (let [title (:title params)
         body (:body params)]
@@ -71,7 +69,7 @@
        "neubite/templates/admin/write.html"
        {}))))
 
-(defn edit-post [params]
+(defn edit-post [request params]
   (let [id (:id params)
         nt (:title params)
         np (:body params)
@@ -85,7 +83,7 @@
      "neubite/templates/admin/write.html"
      {:title title :body body})))
 
-(defn admin-home []
+(defn admin-home [request params]
   "admin home page"
   (let [users (mq/with-collection "users"
                 (mq/find {}))
@@ -100,14 +98,14 @@
      {:users users :posts posts :flatpages flatpages})))
 
 (defroutes admin-routes
-  (GET "/admin/edit/page/:id/" {params :params} (superuser-only edit-flatpage params))
-  (POST "/admin/edit/page/:id/" {params :params} (superuser-only edit-flatpage params))
-  (GET "/admin/write/flatpage/" {params :params} (superuser-only make-flatpage params))
-  (POST "/admin/write/flatpage/" {params :params} (superuser-only make-flatpage params))
-  (POST "/admin/publish/:coll/:id/" {params :params} (superuser-only publish params))
-  (POST "/admin/delete/:coll/:id/" {params :params} (superuser-only delete params))
-  (GET  "/admin/write/" {params :params} (superuser-only write params))
-  (POST "/admin/write/" {params :params} (superuser-only write params))
-  (GET  "/admin/edit/post/:id/" {params :params} (superuser-only edit-post params))
-  (POST  "/admin/edit/post/:id/" {params :params} (superuser-only edit-post params))
-  (GET  "/admin/" [] (superuser-only admin-home)))
+  (GET "/admin/edit/page/:id/" {params :params :as request} (superuser-only edit-flatpage request params))
+  (POST "/admin/edit/page/:id/" {params :params :as request} (superuser-only edit-flatpage request params))
+  (GET "/admin/write/flatpage/" {params :params :as request} (superuser-only make-flatpage request params))
+  (POST "/admin/write/flatpage/" {params :params :as request} (superuser-only make-flatpage request params))
+  (POST "/admin/publish/:coll/:id/" {params :params :as request} (superuser-only publish request params))
+  (POST "/admin/delete/:coll/:id/" {params :params :as request} (superuser-only delete request params))
+  (GET  "/admin/write/" {params :params :as request} (superuser-only write request params))
+  (POST "/admin/write/" {params :params :as request} (superuser-only write request params))
+  (GET  "/admin/edit/post/:id/" {params :params :as request} (superuser-only edit-post request params))
+  (POST  "/admin/edit/post/:id/" {params :params :as request} (superuser-only edit-post request params))
+  (GET  "/admin/" {params :params :as request} (superuser-only admin-home request params)))

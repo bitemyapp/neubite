@@ -1,12 +1,12 @@
 (ns neubite.routes.home
   (:use compojure.core
         ring.util.response)
-  (:require [neubite.middleware :refer [g put-context]]
-            [neubite.models :refer [auth-user get-user-by-email]]
+  (:require [neubite.models :refer [auth-user get-user-by-email]]
             [neubite.util :refer [dissoc-in]]
-            [neubite.views.common :refer [render-template]]))
+            [neubite.views.common :refer [render-template]]
+            limit))
 
-(defn login-page [params]
+(defn login-page [request params]
   "login handler, GET and POST"
   (let [email (:email params)
         password (:password params)
@@ -20,19 +20,7 @@
 (defn logout []
   (dissoc-in (redirect "/") [:session :user-email]))
 
-(defn potions []
-  "potions!"
-  (render-template "neubite/templates/flatpages/potions.html" {}))
-
-(defn about-page []
-  "about page"
-  (render-template "neubite/templates/about.html" {}))
-
-(defn projects []
-  "projects page"
-  (render-template "neubite/templates/projects.html" {}))
-
 (defroutes home-routes
-  (GET  "/login/" {params :params} (login-page params))
-  (POST "/login/" {params :params} (login-page params))
+  (GET  "/login/" {params :params :as request} (login-page request params))
+  (POST "/login/" {params :params :as request} (login-page request params))
   (GET  "/logout/" [] (logout)))

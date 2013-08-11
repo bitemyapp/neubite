@@ -1,13 +1,13 @@
 {% extends "neubite/templates/base.html" %}
 
 {% block extra_css %}
-{{css}}
+{{css|safe}}
 {% endblock extra_css %}
 
 {% block extra_js %}
-{{js}}
+{{js|safe}}
 {% endblock extra_js %}
 
 {% block content %}
-{{content}}
+{{content|safe}}
 {% endblock content %}
