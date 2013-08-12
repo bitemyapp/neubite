@@ -1,7 +1,6 @@
 (ns neubite.views.common
   (:use ring.util.response)
-  (:require [selmer.parser :refer [render-file]]
-            limit))
+  (:require [selmer.parser :refer [render-file]]))
 
 
 (defn render-template-fn [filename context]

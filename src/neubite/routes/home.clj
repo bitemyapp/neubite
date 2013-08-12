@@ -3,8 +3,7 @@
         ring.util.response)
   (:require [neubite.models :refer [auth-user get-user-by-email]]
             [neubite.util :refer [dissoc-in]]
-            [neubite.views.common :refer [render-template]]
-            limit))
+            [neubite.views.common :refer [render-template]]))
 
 (defn login-page [request params]
   "login handler, GET and POST"
