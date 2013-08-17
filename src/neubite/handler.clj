@@ -10,6 +10,7 @@
         neubite.routes.home
         compojure.core)
   (:require [noir.util.middleware :as middleware]
+            [bulwark.core :refer [protect-middleware blacklist throttle]]
             [org.httpkit.server :refer [run-server]]
             [noir.cookies :refer [wrap-noir-cookies]]
             [monger.core :as mg]
@@ -42,6 +43,7 @@
 (def all-routes [admin-routes home-routes blog-routes app-routes])
 (def app (-> (apply routes all-routes)
              (user-middleware)
+             (protect-middleware)
              (site {:session {:cookie-name "session"
                               :store (cookie-store
                                       {:key (config :secret)})}})
@@ -51,7 +53,7 @@
 (def war-handler (middleware/war-handler app))
 
 (defn boot []
-  (init-db)
+  (init)
   (serve #'app {:port 8080
                 :open-browser? true
                 :stacktraces? true
@@ -60,6 +62,6 @@
                 :join? nil}))
 
 (defn -main [& args]
-  (init-db)
+  (init)
   (println "starting http-kit server for neubite on http://localhost:8080/")
-  (run-server app {:port 8080}))
+  (run-server #'app {:port 8080}))

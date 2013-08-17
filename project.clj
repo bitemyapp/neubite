@@ -9,8 +9,10 @@
                  [http-kit "2.0.0"]
                  [ring-server "0.2.8"]
                  [slugify "0.0.1"]
+                 [bulwark "0.0.1"]
                  [com.taoensso/timbre "1.2.0"]
                  [com.taoensso/tower "1.2.0"]
+                 [com.taoensso/carmine "2.2.0"]
                  [com.novemberain/monger "1.4.2"]]
   :plugins [[lein-ring "0.8.2"]]
   :ring {:handler neubite.handler/war-handler
