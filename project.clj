@@ -1,5 +1,7 @@
 (defproject neubite "0.0.4"
   :description "Portfolio site"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
   :url "http://www.bitemyapp.com/"
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [lib-noir "0.3.5"]
