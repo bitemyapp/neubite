@@ -26,4 +26,4 @@ To start a web server for the application, run:
 
 ## License
 
-Copyright © Chris Allen
+Copyright 2013 Chris Allen

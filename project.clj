@@ -5,7 +5,7 @@
                  [lib-noir "0.3.5"]
                  [clj-time "0.4.4"]
                  [compojure "1.1.5"]
-                 [selmer "0.3.7"]
+                 [selmer "0.4.0"]
                  [http-kit "2.0.0"]
                  [ring-server "0.2.8"]
                  [slugify "0.0.1"]
@@ -18,6 +18,7 @@
   :ring {:handler neubite.handler/war-handler
          :init    neubite.handler/init
          :destroy neubite.handler/destroy}
+  :aot :all
   :main neubite.handler
   :profiles
   {:production {:ring {:open-browser? false

@@ -18,7 +18,8 @@
             [neubite.config :refer [config]]
             [ring.middleware.session.cookie :refer [cookie-store]]
             [compojure.route :as route])
-  (:import [org.joda.time DateTimeZone]))
+  (:import [org.joda.time DateTimeZone])
+  (:gen-class))
 
 (defroutes app-routes
   (route/resources "/")
@@ -54,7 +55,7 @@
 
 (defn boot []
   (init)
-  (serve #'app {:port 8080
+  (serve #'app {:port 3000
                 :open-browser? true
                 :stacktraces? true
                 :auto-reload? true
@@ -64,4 +65,4 @@
 (defn -main [& args]
   (init)
   (println "starting http-kit server for neubite on http://localhost:8080/")
-  (run-server #'app {:port 8080}))
+  (run-server #'app {:port 3000}))
