@@ -1,11 +1,36 @@
 (ns neubite.middleware
   (:use ring.util.response)
-  (:require [neubite.models :refer [get-user-by-email]]))
+  (:require [neubite.models :refer [get-user-by-email]]
+            [clojure.stacktrace :as st]
+            [clojure.pprint :refer [pprint]]))
 
 (defn wrap-if [handler pred wrapper & args]
   (if pred
     (apply wrapper handler args)
     handler))
+
+(defn wrap-failsafe
+  ([handler]
+    (wrap-failsafe handler (fn [req e]
+                             (str "<h1>Oops</h1>\n"
+                                  "<pre>"
+                                  (with-out-str (pprint req))
+                                  "</pre>"
+                                  "<br><br>"
+                                  e "<br><br>"
+                                  "<pre>"
+                                  (with-out-str
+                                    (st/print-stack-trace e))
+                                  "</pre>"
+                                  "<br><br>"))))
+  ([handler body-renderer]
+    (fn [req]
+      (try
+        (handler req)
+        (catch Throwable e
+          {:status 500
+           :headers {"Content-Type" "text/html"}
+           :body (body-renderer req e)})))))
 
 (defn user-middleware [app]
   (fn [req]

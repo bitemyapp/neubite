@@ -43,6 +43,7 @@
 
 (def all-routes [admin-routes home-routes blog-routes app-routes])
 (def app (-> (apply routes all-routes)
+             (wrap-failsafe)
              (user-middleware)
              (protect-middleware)
              (site {:session {:cookie-name "session"
